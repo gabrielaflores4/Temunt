@@ -1,7 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using Temunt.Models;
+using Temunt.Servicios;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Variable de sesión
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(3600);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Configura los servicios y la base de datos
+builder.Services.AddDbContext<TemuntDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TemuntDbConnection")));
+
+
 
 var app = builder.Build();
 
@@ -19,6 +37,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
