@@ -1,8 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Temunt.Models;
-using System.Linq;
-using Temunt.Servicios;
 using Temunt.Models;
 using Temunt.Servicios;
 

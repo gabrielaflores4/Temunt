@@ -16,5 +16,6 @@ namespace Temunt.Models
         public DbSet<producto> producto { get; set; }
         public DbSet<detalleP> detalleP { get; set; }
         public DbSet<notificaciones> notificaciones { get; set; }
+        public DbSet<clientes> clientes { get; set; }
     }
 }

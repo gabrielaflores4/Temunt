@@ -1,0 +1,81 @@
+﻿@model Temunt.Models.pedidos
+
+@{
+    ViewData["Title"] = "Crear Nuevo Pedido";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid p-4" style="background-color: #f8f9fc;">
+    <div class="container-fluid">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 fw-bold text-dark">Crear Nuevo Pedido</h2>
+        </div>
+        <form asp-action="CrearPedidos" asp-controller="Pedidos" method="post">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="fw-semibold">Cliente</label>
+                    <select asp-for="id_cliente" class="form-select" asp-items="ViewBag.Clientes">
+                        <option value="">Seleccionar cliente...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--Productos -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm p-4">
+                        <h5 class="fw-bold mb-3">Productos</h5>
+
+                        <div class="mb-3">
+                            <label class="fw-semibold">Producto</label>
+                            <select id="productoSelect" class="form-select" asp-items="ViewBag.Productos">
+                                <option value="">Seleccionar producto...</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-semibold">Cantidad</label>
+                            <input type="number" id="cantidadInput" class="form-control" placeholder="Valor" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-semibold">Garantía - Expiración</label>
+                            <input type="date" id="garantiaInput" class="form-control" />
+                        </div>
+
+                        <button type="button" id="btnAgregar" class="btn w-100" style="background-color:#070d2f; color:white;">
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+
+                <!--Resumen -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm p-4">
+                        <h5 class="fw-bold mb-3">Resumen del Pedido</h5>
+
+                        <div id="listaProductos" class="text-muted mb-3">
+                            <p>No hay productos agregados</p>
+                        </div>
+
+                        <hr />
+
+                        <p>Total de productos: <span id="totalProductos">0</span></p>
+                        <p>Total del Pedido: $<span id="totalPedido">0</span></p>
+
+                        <button type="submit" class="btn w-100" style="background-color:#070d2f; color:white;">
+                            Crear Pedido
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <a href="@Url.Action("Index", "Pedidos")" class="btn" style="background-color:#B91C1C; color:white;">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
