@@ -18,7 +18,7 @@ namespace Temunt.Controllers
             _context = context;
         }
 
-        // Acción para manejar tanto el GET como el POST del inicio de sesión
+        // Acciï¿½n para manejar tanto el GET como el POST del inicio de sesiï¿½n
         [Autenticado]
         [HttpGet]
         public IActionResult Index()
@@ -33,7 +33,7 @@ namespace Temunt.Controllers
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(contra))
             {
-                ViewData["Error"] = "Por favor, ingrese el correo y la contraseña.";
+                ViewData["Error"] = "Por favor, ingrese el correo y la contraseï¿½a.";
                 return View();
             }
 
@@ -46,7 +46,8 @@ namespace Temunt.Controllers
 
                 HttpContext.Session.SetInt32("id_usuarios", usuarios.id_usuario);
                 HttpContext.Session.SetString("correo", usuarios.email);
-
+                HttpContext.Session.SetString("nombre_usuario", usuarios.nombreP); 
+                HttpContext.Session.SetString("rol_usuario", usuarios.roles);
 
                 if (usuarios.roles == "Administrador")
                 {
@@ -63,7 +64,7 @@ namespace Temunt.Controllers
             else
             {
 
-                ViewData["Error"] = "Correo o contraseña incorrectos.";
+                ViewData["Error"] = "Correo o contraseï¿½a incorrectos.";
             }
 
             return View();
