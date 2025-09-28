@@ -9,15 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
 </head>
+
 <body>
     <div class="layout">
         <!-- Sidebar -->
         <div class="sidebar">
             <div>
                 <div class="logo d-flex align-items-center justify-content-center mb-3">
-                    <img src="~/img/logoTemunt.png" alt="Logo" style="max-width: 50px; height: auto;">
+                    <img src="~/img/logoTemunt.png" alt="Logo">
                     <h5 class="mb-0 ms-2">TEMUN’T</h5>
                 </div>
 
@@ -36,9 +36,6 @@
                     </a>
                     <a asp-controller="Pedidos" asp-action="Index" class="@(ViewData["Active"] as string == "Pedidos" ? "active" : "")">
                         <i class="bi bi-cart"></i> Pedidos
-                    </a>
-                    <a asp-controller="Usuarios" asp-action="Index" class="@(ViewData["Active"] as string == "Usuarios" ? "active" : "")">
-                        <i class="bi bi-people"></i> Usuarios
                     </a>
                     <a asp-controller="Clientes" asp-action="Index" class="@(ViewData["Active"] as string == "Clientes" ? "active" : "")">
                         <i class="bi bi-person-badge"></i> Clientes

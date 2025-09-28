@@ -1,22 +1,113 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    background-color: #1c1c1c;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+
+/*Sidebar*/
+.sidebar {
+    width: 250px;
+    background-color: #d6d3e3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .sidebar a {
+        display: block;
+        padding: 10px 15px;
+        margin: 6px 0;
+        color: #000; 
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .sidebar a:hover {
+            background-color: #070d2f;
+            transform: scale(1.03);
+            color:white;
+        }
+
+        .sidebar a.active {
+            background-color: #070d2f;
+            color:white;
+        }
+
+.logo img {
+    max-width: 50px;
+    height: auto;
+}
+
+.user-info i {
+    font-size: 2.5rem;
+}
+
+.menu {
+    flex: 1;
+}
+
+.logout {
+    margin-top: auto;
+    text-align: center;
+}
+
+.content {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/*Index*/
+.card-custom {
+    background: #c6c2d5;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .card-custom i {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+.metric {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+.chart-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 12px;
+    height: 360px;
+    position: relative;
+}
+
+    .chart-container canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
