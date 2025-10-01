@@ -20,7 +20,6 @@
         </tr>
     </thead>
     <tbody>
-        @* ESTE FOREACH DEBE RECORRER LA LISTA DE CLIENTES *@
         @foreach (var item in Model)
         {
             <tr>
@@ -28,9 +27,13 @@
                 <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
                 <td>@Html.DisplayFor(modelItem => item.Email)</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdCliente">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdCliente">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdCliente">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdCliente" class="btn btn-sm btn-outline-primary" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+
+                    <a asp-action="Delete" asp-route-id="@item.IdCliente" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                    </a>
                 </td>
             </tr>
         }
