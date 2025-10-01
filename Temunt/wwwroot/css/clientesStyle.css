@@ -1,6 +1,6 @@
 ﻿/*Clientes*/
 .btn-crear {
-    background-color: #070d2f;
+    background-color: #1A0E59;
     color: white;
     border: none;
     font-weight: 600;
@@ -8,6 +8,7 @@
     padding: 0.625rem 1.5rem;
     border-radius: 0.5rem;
     letter-spacing: 0.5px;
+    text-decoration: none !important;
 }
 
     .btn-crear:hover {

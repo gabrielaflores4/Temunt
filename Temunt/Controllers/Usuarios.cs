@@ -21,8 +21,10 @@ namespace Temunt.Controllers
 
         public IActionResult Create()
         {
-            return View(); 
+            return View("CrearUsuarios"); 
         }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(usuarios usuario)
