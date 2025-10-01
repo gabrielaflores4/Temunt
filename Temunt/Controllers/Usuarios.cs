@@ -37,5 +37,36 @@ namespace Temunt.Controllers
             }
             return View(usuario);
         }
+
+        public IActionResult EditarUsuario(int id)
+        {
+            var usuario = _context.usuarios.FirstOrDefault(u => u.id_usuario == id);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditarUsuario(int id, usuarios usuario)
+        {
+            if (id != usuario.id_usuario)
+            {
+                return BadRequest();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(usuario);
+                _context.SaveChanges();
+                return RedirectToAction("ListaUsuarios");
+            }
+
+            return View(usuario);
+        }
     }
 }
