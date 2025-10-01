@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Temunt.Models.proveedores>
+
+@{
+    ViewData["Title"] = "Proveedores";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/proveedores.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="proveedores-container">
+
+        <!-- FILA 1: buscador y notificaciones -->
+        <div class="proveedores-header-top">
+            <div class="search-container">
+                <input type="text"
+                       placeholder="Buscar..."
+                       class="search-input" />
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <button class="notification-btn">
+                <i class="far fa-bell"></i>
+            </button>
+        </div>
+
+        <!-- FILA 2: título y botón añadir -->
+        <div class="proveedores-header-bottom">
+            <h1>Proveedores</h1>
+            <a asp-action="Create" class="add-btn">
+                Añadir Proveedor
+            </a>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-container">
+            <table class="proveedores-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.id_prov.ToString("D4")</td>
+                            <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.direccion)</td>
+                            <td>
+                                <a href="tel:@item.telefono" class="phone-link">
+                                    @Html.DisplayFor(modelItem => item.telefono)
+                                </a>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.email)</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a asp-action="Edit" asp-route-id="@item.id_prov"
+                                       class="action-btn"
+                                       title="Editar">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.id_prov"
+                                       class="action-btn"
+                                       title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
