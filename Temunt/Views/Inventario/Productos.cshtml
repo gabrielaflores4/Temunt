@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Temunt.Models.producto>
+
+
+<div class="dashboard-content">
+    <div class="content-header flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">Productos</h1>
+
+        <div class="flex items-center justify-between mb-4">
+            <!-- Buscador + Notificación juntos -->
+            <div class="flex items-center space-x-2">
+                <input type="text" placeholder="Buscar..." class="border rounded-l-lg px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <button class="relative bg-gray-100 px-3 py-2 rounded-r-lg hover:bg-gray-200">
+                    🔔
+                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">3</span>
+                </button>
+            </div>
+
+            <!-- Botón añadir producto separado -->
+            <a href="#" class="btn-add bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 ml-6">
+                Añadir Producto
+            </a>
+        </div>
+
+    </div>
+
+        <div class="table-wrapper overflow-x-auto">
+            <table class="table-auto w-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 text-left">Código</th>
+                        <th class="px-4 py-2 text-left">Nombre</th>
+                        <th class="px-4 py-2 text-left">Categoría</th>
+                        <th class="px-4 py-2 text-left">Proveedor</th>
+                        <th class="px-4 py-2 text-left">Descripción</th>
+                        <th class="px-4 py-2 text-left">Precio</th>
+                        <th class="px-4 py-2 text-left">Stock</th>
+                        <th class="px-4 py-2 text-left">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-4 py-2">@item.id_prod</td>
+                            <td class="px-4 py-2">@item.nombre</td>
+                            <td class="px-4 py-2">@item.id_cat</td>
+                            <td class="px-4 py-2">@item.id_prov</td>
+                            <td class="px-4 py-2">@item.descripcion</td>
+                            <td class="px-4 py-2">$@item.precio</td>
+                            <td class="px-4 py-2">@item.stock</td>
+                            <td class="px-4 py-2 flex space-x-2">
+                                <a href="#" class="text-blue-600">✏️</a>
+                                <a href="#" class="text-red-600">🗑️</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+

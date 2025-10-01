@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Temunt.Models;
 
 
-namespace Temunt.Models
+namespace Temunt.Data
 {
     public class TemuntDbContext : DbContext
     {
