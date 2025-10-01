@@ -1,5 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Temunt.Models.usuarios>
+
 @{
+    ViewData["Title"] = "Usuarios";
 }
+
+<div class="container-fluid p-4" style="background-color: #f8f9fc;">
+    <div class="row">
+        <div class="col-12">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Usuarios</h2>
+                    <a asp-action="Create" class="btn-crear">
+                        Añadir Usuario
+                    </a>
+                </div>
+
+                <div class="card p-3">
+                    <table class="table table-hover w-100">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Usuario</th>
+                                <th>Persona</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var usuario in Model)
+                            {
+                                <tr>
+                                    <td><i class="fa fa-user"></i></td>
+                                    <td>@usuario.nombreU</td>
+                                    <td>@usuario.nombreP</td>
+                                    <td>@usuario.email</td>
+                                    <td>
+                                        <a href="tel:@usuario.telefono" class="phone-link">
+                                            @usuario.telefono
+                                        </a>
+                                    </td>
+                                    <td>@usuario.roles</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a asp-action="Edit" asp-route-id="@usuario.id_usuario"
+                                               class="action-btn"
+                                               title="Editar">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@usuario.id_usuario"
+                                               class="action-btn"
+                                               title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+       
+    
