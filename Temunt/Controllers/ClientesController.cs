@@ -1,83 +1,55 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Temunt.Models; 
 
 namespace Temunt.Controllers
 {
     public class ClientesController : Controller
     {
-        // GET: ClientesController
-        public ActionResult Index()
+        
+        private readonly TemuntDbContext _context;
+
+        public ClientesController(TemuntDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var listaClientes = await _context.Clientes.ToListAsync();
+
+            return View(listaClientes);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+            var cliente = await _context.Clientes.FirstOrDefaultAsync(m => m.IdCliente == id);
+            if (cliente == null) return NotFound();
+            return View(cliente);
+        }
+
+        // GET: Clientes/Create
+        public IActionResult Create()
         {
             return View();
         }
 
-        // GET: ClientesController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: ClientesController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ClientesController/Create
+        // POST: Clientes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(Cliente cliente)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _context.Add(cliente);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(cliente);
         }
 
-        // GET: ClientesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ClientesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ClientesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ClientesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        public IActionResult Edit(int id) { return View(); }
+        public IActionResult Delete(int id) { return View(); }
     }
 }
