@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <div class="layout">
@@ -23,8 +23,8 @@
 
                 <div class="user-info text-center mb-3">
                     <i class="bi bi-person-circle"></i>
-                    <p class="mt-2 fw-bold">@ViewBag.NombreUsuario</p>
-                    <p class="text-danger">@ViewBag.RolUsuario</p>
+                    <p class="mt-2 fw-bold">@Context.Session.GetString("nombre_usuario")</p>
+                    <p class="text-danger">@Context.Session.GetString("rol_usuario")</p>
                 </div>
 
                 <div class="menu">

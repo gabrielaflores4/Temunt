@@ -1,0 +1,81 @@
+﻿@model Temunt.Models.pedidos
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "_Layout";
+}
+
+
+<div class="container-fluid p-4" style="background-color: #f8f9fc;">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 fw-bold text-dark">Detalles</h2>
+        </div>
+        <div class="card shadow-sm p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold">Pedido #@Model.id_pedidos</h5>
+                <span class="badge bg-dark">@Model.estadoP.estado</span>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="fw-semibold">Cliente</label>
+                    <input type="text" class="form-control" value="@Model.clientes?.nombre" readonly />
+                </div>
+                <div class="col-md-4">
+                    <label class="fw-semibold">Items</label>
+                    <input type="text" class="form-control" value="@ViewBag.TotalItems" readonly />
+                </div>
+                <div class="col-md-4">
+                    <label class="fw-semibold">Total</label>
+                    <input type="text" class="form-control" value="$@ViewBag.TotalPedido" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm p-4">
+            <h5 class="fw-bold mb-3">Items del Pedido</h5>
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unit.</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.detalleP)
+                    {
+                        <tr>
+                            <td>@item.producto.nombre</td>
+                            <td>@item.cantidad</td>
+                            <td>$@item.producto.precio</td>
+                            <td>$@(item.cantidad* item.producto.precio)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <form asp-action="CambiarEstado" asp-controller="Pedidos" method="post">
+                <input type="hidden" name="id" value="@Model.id_pedidos" />
+                <input type="hidden" name="nuevoEstadoId" value="2" />
+                <button type="submit" class="btn px-3" style="background-color:#1E1B4B; color:white;">
+                    Marcar como entregado
+                </button>
+            </form>
+
+            <form asp-action="Eliminar" asp-controller="Pedidos" method="post">
+                <input type="hidden" name="id" value="@Model.id_pedidos" />
+                <button type="submit" class="btn px-3" style="background-color:#B91C1C; color:white;">
+                    Cancelar Pedido
+                </button>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
