@@ -1,0 +1,54 @@
+﻿@model Temunt.Models.usuarios
+
+@{
+    ViewData["Title"] = "Crear Usuario";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid p-4" style="background-color:#f8f9fc;">
+    <div class="d-flex justify-content-center">
+        <div class="card shadow p-4" style="max-width:600px; width:100%; border-radius:10px;">
+            <h3 class="text-center mb-4 fw-bold">Crear Usuario</h3>
+
+            <form asp-action="Create" asp-controller="Usuarios" method="post">
+                <div class="mb-3">
+                    <label class="fw-semibold">Nombre</label>
+                    <input asp-for="nombreU" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="fw-semibold">Apellido</label>
+                    <input asp-for="nombreP" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="fw-semibold">Rol</label>
+                    <select asp-for="roles" class="form-select">
+                        <option value="">Seleccionar rol...</option>
+                        <option value="Admin">Administrador</option>
+                        <option value="Empleado">Empleado</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="fw-semibold">Email</label>
+                    <input asp-for="email" type="email" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="fw-semibold">Contraseña</label>
+                    <input asp-for="contra" type="password" class="form-control" />
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="ListaUsuarios"
+                       class="btn px-4"
+                       style="background-color:#B91C1C; color:white; border-radius:6px;">
+                        Cancelar
+                    </a>
+                    <button type="submit"
+                            class="btn px-4"
+                            style="background-color:#070d2f; color:white; border-radius:6px;">
+                        Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

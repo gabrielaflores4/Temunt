@@ -8,6 +8,8 @@ namespace Temunt.Models
     {
         public TemuntDbContext(DbContextOptions<TemuntDbContext> options) : base(options) { }
 
+        public DbSet<clientes> Clientes { get; set; }
+
         public DbSet<usuarios> usuarios { get; set; }
         public DbSet<categorias> categorias { get; set; }
         public DbSet<pedidos> pedidos { get; set; }
@@ -16,5 +18,6 @@ namespace Temunt.Models
         public DbSet<producto> producto { get; set; }
         public DbSet<detalleP> detalleP { get; set; }
         public DbSet<notificaciones> notificaciones { get; set; }
+        public DbSet<clientes> clientes { get; set; }
     }
 }

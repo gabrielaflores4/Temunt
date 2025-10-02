@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Temunt.Models.clientes>
+
+@{
+    ViewData["Title"] = "Listado de Clientes";
+}
+
+<h1>Listado de Clientes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Cliente</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.empresa)</th>
+            <th>@Html.DisplayNameFor(model => model.email)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.empresa)</td>
+                <td>@Html.DisplayFor(modelItem => item.email)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id_cliente" class="btn btn-sm btn-outline-primary" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+
+                    <a asp-action="Delete" asp-route-id="@item.id_cliente" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
