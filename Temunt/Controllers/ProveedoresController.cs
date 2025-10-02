@@ -17,5 +17,21 @@ namespace Temunt.Controllers
             var lista = _context.proveedores.ToList();  // <-- Aquí haces el READ
             return View(lista);
         }
+
+        public IActionResult Edit(int id) 
+        {
+            return View();
+        }
+
+        public IActionResult Delete(int id) 
+        { 
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
     }
 }

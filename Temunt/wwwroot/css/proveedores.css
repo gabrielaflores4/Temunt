@@ -1,8 +1,11 @@
-﻿.proveedores-container {
+﻿/* Proveedores Page Styles */
+
+.proveedores-container {
     max-width: 1280px;
     margin: 0 auto;
 }
 
+/* Adding header layout styles for search and title rows */
 .proveedores-header-top {
     display: flex;
     justify-content: flex-end;
@@ -24,6 +27,26 @@
         color: #111827;
         margin: 0;
     }
+
+.proveedores-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+    .proveedores-header h1 {
+        font-size: 1.875rem;
+        font-weight: bold;
+        color: #111827;
+        margin: 0;
+    }
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 
 .search-container {
     position: relative;
@@ -163,12 +186,109 @@
         color: #be185d;
     }
 
+/* Adding form page styles */
+
+/* Form wrapper to contain card and cancel button */
+.form-wrapper {
+    position: relative;
+    padding-bottom: 0rem;
+}
+
+/* Form Card */
+.form-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto 1rem auto;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    color: #111827;
+    outline: none;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+    .form-input:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+/* Form Actions */
+.form-actions {
+    margin-top: 2rem;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: #312e81;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+    .btn-submit:hover {
+        background-color: #1e1b4b;
+    }
+
+/* Cancel button positioned outside card at bottom right */
+.form-cancel {
+    text-align: right;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-right: 0;
+}
+
+.btn-cancel {
+    background-color: #b91c1c;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+
+    .btn-cancel:hover {
+        background-color: #991b1b;
+    }
+
 @media (max-width: 768px) {
-    .proveedores-header-top,
-    .proveedores-header-bottom {
+    .proveedores-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
+    }
+
+    .header-actions {
+        width: 100%;
+        flex-wrap: wrap;
     }
 
     .search-input {
@@ -178,4 +298,8 @@
     .table-container {
         overflow-x: auto;
     }
+}
+.form-title {
+    text-align: center;
+    font-size: 18px; 
 }
