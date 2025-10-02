@@ -112,6 +112,14 @@ body {
     margin: 0 auto;
 }
 
+a.btn-crear,
+a.btn-crear:hover,
+a.btn-crear:focus,
+a.btn-crear:visited {
+    text-decoration: none !important;
+    color: white !important;
+}
+
 
 /*Pedidos*/
 .btn-crear {
