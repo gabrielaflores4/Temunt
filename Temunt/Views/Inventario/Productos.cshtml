@@ -1,56 +1,63 @@
 ﻿@model IEnumerable<Temunt.Models.producto>
 
+@{
+    ViewData["Title"] = "Productos";
+    Layout = "_Layout";
+}
 
-<div class="dashboard-content">
-    <div class="content-header flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Productos</h1>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Productos</h2>
 
-        <div class="flex items-center justify-between mb-4">
-            <!-- Buscador + Notificación juntos -->
-            <div class="flex items-center space-x-2">
-                <input type="text" placeholder="Buscar..." class="border rounded-l-lg px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                <button class="relative bg-gray-100 px-3 py-2 rounded-r-lg hover:bg-gray-200">
-                    🔔
-                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">3</span>
-                </button>
+            <div class="d-flex align-items-center">
+                <form class="d-flex me-3">
+                    <input type="text" placeholder="Buscar..." class="form-control me-2" />
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-danger rounded-circle">3</span>
+                    </button>
+                </form>
+
+                <a asp-action="CrearProductos" asp-controller="Inventario" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Añadir Producto
+                </a>
             </div>
-
-            <!-- Botón añadir producto separado -->
-            <a href="#" class="btn-add bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 ml-6">
-                Añadir Producto
-            </a>
         </div>
 
-    </div>
-
-        <div class="table-wrapper overflow-x-auto">
-            <table class="table-auto w-full border-collapse">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="px-4 py-2 text-left">Código</th>
-                        <th class="px-4 py-2 text-left">Nombre</th>
-                        <th class="px-4 py-2 text-left">Categoría</th>
-                        <th class="px-4 py-2 text-left">Proveedor</th>
-                        <th class="px-4 py-2 text-left">Descripción</th>
-                        <th class="px-4 py-2 text-left">Precio</th>
-                        <th class="px-4 py-2 text-left">Stock</th>
-                        <th class="px-4 py-2 text-left">Acciones</th>
+        <div class="table-responsive shadow-sm rounded">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Proveedor</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="px-4 py-2">@item.id_prod</td>
-                            <td class="px-4 py-2">@item.nombre</td>
-                            <td class="px-4 py-2">@item.id_cat</td>
-                            <td class="px-4 py-2">@item.id_prov</td>
-                            <td class="px-4 py-2">@item.descripcion</td>
-                            <td class="px-4 py-2">$@item.precio</td>
-                            <td class="px-4 py-2">@item.stock</td>
-                            <td class="px-4 py-2 flex space-x-2">
-                                <a href="#" class="text-blue-600">✏️</a>
-                                <a href="#" class="text-red-600">🗑️</a>
+                        <tr>
+                            <td>@item.id_prod</td>
+                            <td>@item.nombre</td>
+                            <td>@item.id_cat</td>
+                            <td>@item.id_prov</td>
+                            <td>@item.descripcion</td>
+                            <td>$@item.precio</td>
+                            <td>@item.stock</td>
+                            <td class="text-center">
+                                <a asp-action="EditarProductos" asp-controller="Inventario" asp-route-id="@item.id_prod"
+                                   class="btn btn-sm btn-outline-primary me-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-action="EliminarProducto" asp-controller="Inventario" asp-route-id="@item.id_prod"
+                                   class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </a>
                             </td>
                         </tr>
                     }
@@ -58,4 +65,3 @@
             </table>
         </div>
     </div>
-

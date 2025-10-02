@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Temunt.Models.producto
+
 @{
+    ViewData["Title"] = "Crear Producto";
+    Layout = "_Layout";
 }
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow border-0">
+                <div class="card-header text-center" style="background-color:#453c79; color:white;">
+                    <h4 class="mb-0">Crear Producto</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="CrearProductos" asp-controller="Inventario" method="post">
+                        <div class="mb-3">
+                            <label asp-for="nombre" class="form-label fw-semibold"></label>
+                            <input asp-for="nombre" class="form-control" placeholder="Nombre del producto" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="id_cat" class="form-label fw-semibold">Categoría (ID)</label>
+                            <input asp-for="id_cat" class="form-control" type="number" placeholder="ID de categoría" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="id_prov" class="form-label fw-semibold">Proveedor (ID)</label>
+                            <input asp-for="id_prov" class="form-control" type="number" placeholder="ID de proveedor" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="descripcion" class="form-label fw-semibold"></label>
+                            <textarea asp-for="descripcion" class="form-control" rows="3" placeholder="Descripción del producto"></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="precio" class="form-label fw-semibold"></label>
+                                <input asp-for="precio" class="form-control" type="number" step="0.01" placeholder="Precio" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="stock" class="form-label fw-semibold"></label>
+                                <input asp-for="stock" class="form-control" type="number" placeholder="Cantidad en stock" />
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Productos" asp-controller="Inventario" class="btn btn-danger px-4">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn" style="background-color:#453c79; color:white;">
+                                <i class="bi bi-check-circle"></i> Crear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
