@@ -14,7 +14,6 @@ namespace Temunt.Controllers
             _context = context;
         }
 
-        // Acción para manejar tanto el GET como el POST del inicio de sesión
         [Autenticado]
         [HttpGet]
         public IActionResult Index()
@@ -44,12 +43,12 @@ namespace Temunt.Controllers
 
                 if (usuario.roles == "Administrador")
                 {
-                    return RedirectToAction("IndexA", "DashboardAdmin");
+                    return RedirectToAction("Index", "Dashboard");
                 }
 
                 if (usuario.roles == "Empleado")
                 {
-                    return RedirectToAction("IndexE", "DashboardEmpleado");
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
             else
