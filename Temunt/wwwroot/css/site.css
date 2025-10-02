@@ -111,3 +111,23 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.action-btn {
+    text-decoration: none;
+    color: #333;
+    padding: 0 5px;
+}
+
+ 
+    .action-btn:hover {
+        text-decoration: none;
+    }
+
+    .action-btn .fa-trash {
+        color: #dc3545; 
+    }
+
+    
+    .action-btn .fa-pen {
+        color: #007bff; 
+    }
