@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Temunt.Models.pedidos>
+
+@{
+    ViewData["Title"] = "Pedidos";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid p-4" style="background-color: #f8f9fc;">
+    <div class="row">
+        <div class="col-12">
+            
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0 fw-bold text-dark">Pedidos</h2>
+                <a href="@Url.Action("CrearPedidos", "Pedidos")" class="btn btn-crear">
+                    CREAR PEDIDO
+                </a>
+            </div>
+
+            <!-- Mensajes de éxito/error -->
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <!-- Tabla de pedidos -->
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead style="background-color: #f7f9fc;">
+                            <tr>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">ID</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Cliente</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Estado</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Monto</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Garantía</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Fecha</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Detalles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                @foreach (var pedido in Model)
+                                {
+                                    <tr style="border-bottom: 1px solid #e9ecef;">
+                                        <td class="px-4 py-3">
+                                            <span class="fw-medium">@pedido.id_pedidos.ToString("D4")</span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            @if (pedido.clientes != null)
+                                            {
+                                                <div>
+                                                    <div class="fw-medium text-dark">@pedido.clientes.nombre</div>
+                                                    @if (!string.IsNullOrEmpty(pedido.clientes.empresa))
+                                                    {
+                                                        <small class="text-muted">@pedido.clientes.empresa</small>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Cliente</span>
+                                            }
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <span class="badge @GetEstadoBadgeClass(pedido.estadoP?.estado ?? "Pendiente")">
+                                                @(pedido.estadoP?.estado ?? "Pendiente")
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <span class="fw-medium text-dark">
+                                                @(pedido.detalleP?.Sum(d => d.cantidad * d.producto.precio).ToString("C"))
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <span class="text-muted">
+                                                @pedido.detalleP?.FirstOrDefault()?.garantiaExp?.ToString("dd-MMM-yyyy")
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <span class="text-muted">@pedido.fechaP?.ToString("dd-MMM-yyyy")</span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <a href="@Url.Action("DetallesPedido", "Pedidos", new { id = pedido.id_pedidos })"
+                                                class="btn btn-detalles">
+                                                Detalles
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" class="text-center py-5 text-muted">
+                                        <i class="fas fa-box-open fa-2x mb-3"></i>
+                                        <div>No hay pedidos registrados</div>
+                                        <button type="button" class="btn btn-crear mt-3" data-bs-toggle="modal" data-bs-target="#crearPedidoModal">
+                                            Crear primer pedido
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetEstadoBadgeClass(string estado)
+    {
+        return estado?.ToLower() switch
+        {
+            "pendiente" => "badge-pendiente",
+            "entregado" => "badge-entregado",
+            "cancelado" => "badge-cancelado",
+            _ => "badge-pendiente"
+        };
+    }
+}
