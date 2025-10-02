@@ -1,4 +1,4 @@
-﻿@model Temunt.Models.Cliente
+﻿@model Temunt.Models.clientes
 
 @{
     ViewData["Title"] = "Detalles del Cliente";
@@ -7,42 +7,42 @@
 <h1>Detalles del Cliente</h1>
 
 <div>
-    <h4>Cliente: @Model.Nombre</h4>
+    <h4>Cliente: @Model.nombre</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.nombre)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.nombre)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Empresa)
+            @Html.DisplayNameFor(model => model.empresa)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Empresa)
+            @Html.DisplayFor(model => model.empresa)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Contacto)
+            @Html.DisplayNameFor(model => model.contacto)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Contacto)
+            @Html.DisplayFor(model => model.contacto)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefono)
+            @Html.DisplayNameFor(model => model.telefono)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Telefono)
+            @Html.DisplayFor(model => model.telefono)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.email)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.email)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IdCliente">Editar</a> |
+    <a asp-action="Edit" asp-route-id="@Model.id_cliente">Editar</a> |
     <a asp-action="Index">Volver a la Lista</a>
 </div>
