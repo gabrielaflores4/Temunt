@@ -5,7 +5,6 @@ namespace Temunt.Models
 {
     public class producto
     {
-
         [Key]
         public int id_prod { get; set; }
         public string nombre { get; set; }
