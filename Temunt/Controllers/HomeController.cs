@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Temunt.Data; // 👈 DbContext está aquí
 using Temunt.Servicios;
 
 namespace Temunt.Controllers

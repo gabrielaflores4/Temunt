@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Temunt.Data;
+using Temunt.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 

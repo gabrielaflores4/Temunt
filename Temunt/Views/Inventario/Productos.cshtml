@@ -5,63 +5,83 @@
     Layout = "_Layout";
 }
 
-    <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">Productos</h2>
+<div class="container-fluid p-4" style="background-color: #f8f9fc;">
+    <div class="row">
+        <div class="col-12">
 
-            <div class="d-flex align-items-center">
-                <form class="d-flex me-3">
-                    <input type="text" placeholder="Buscar..." class="form-control me-2" />
-                    <button type="button" class="btn btn-outline-secondary">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-danger rounded-circle">3</span>
-                    </button>
-                </form>
-
-                <a asp-action="CrearProductos" asp-controller="Inventario" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> Añadir Producto
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0 fw-bold text-dark">Productos</h2>
+                <a href="@Url.Action("CrearProductos", "Inventario")" class="btn btn-crear">
+                    CREAR PRODUCTO
                 </a>
             </div>
-        </div>
 
-        <div class="table-responsive shadow-sm rounded">
-            <table class="table table-striped table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Categoría</th>
-                        <th>Proveedor</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.id_prod</td>
-                            <td>@item.nombre</td>
-                            <td>@item.id_cat</td>
-                            <td>@item.id_prov</td>
-                            <td>@item.descripcion</td>
-                            <td>$@item.precio</td>
-                            <td>@item.stock</td>
-                            <td class="text-center">
-                                <a asp-action="EditarProductos" asp-controller="Inventario" asp-route-id="@item.id_prod"
-                                   class="btn btn-sm btn-outline-primary me-2">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a asp-action="EliminarProducto" asp-controller="Inventario" asp-route-id="@item.id_prod"
-                                   class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <!-- Tabla de productos -->
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead style="background-color: #f7f9fc;">
+                            <tr>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Código</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Nombre</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Categoría</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Proveedor</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Descripción</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Precio</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Stock</th>
+                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr style="border-bottom: 1px solid #e9ecef;">
+                                        <td class="px-4 py-3 fw-medium">@item.id_prod.ToString("D4")</td>
+                                        <td class="px-4 py-3 fw-medium text-dark">@item.nombre</td>
+                                        <td class="px-4 py-3 text-muted">@item.id_cat</td>
+                                        <td class="px-4 py-3 text-muted">@item.id_prov</td>
+                                        <td class="px-4 py-3 text-muted">@item.descripcion</td>
+                                        <td class="px-4 py-3 fw-medium text-dark">@item.precio.ToString("C")</td>
+                                        <td class="px-4 py-3 fw-medium">@item.stock</td>
+                                        <td class="px-4 py-3 text-center">
+                                            <a href="@Url.Action("EditarProductos", "Inventario", new { id = item.id_prod })"
+                                               class="btn btn-detalles me-2">
+                                                Editar
+                                            </a>
+                                            <a href="@Url.Action("EliminarProducto", "Inventario", new { id = item.id_prod })"
+                                               class="btn btn-cancelar">
+                                                Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" class="text-center py-5 text-muted">
+                                        <i class="fas fa-box-open fa-2x mb-3"></i>
+                                        <div>No hay productos registrados</div>
+                                        <a href="@Url.Action("CrearProductos", "Inventario")" class="btn btn-crear mt-3">
+                                            Crear primer producto
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+</div>

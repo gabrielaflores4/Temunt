@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Temunt.Models;
 
 
-namespace Temunt.Data
+namespace Temunt.Controllers
 {
     public class TemuntDbContext : DbContext
     {
