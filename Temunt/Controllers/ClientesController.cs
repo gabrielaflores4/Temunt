@@ -48,8 +48,65 @@ namespace Temunt.Controllers
             }
             return View(cliente);
         }
+        // POST: Clientes/Delete/5 (Ejecuta la eliminación en cascada con Transacción)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            // Usa una transacción para asegurar que todas las eliminaciones se ejecuten exitosamente.
+            using var transaction = await _context.Database.BeginTransactionAsync();
 
-        public IActionResult Edit(int id) { return View(); }
-        public IActionResult Delete(int id) { return View(); }
+            try
+            {
+                var cliente = await _context.Clientes.FindAsync(id);
+
+                if (cliente == null)
+                {
+                    return NotFound();
+                }
+
+                // 1. OBTENER LOS PEDIDOS ASOCIADOS AL CLIENTE
+                var pedidosRelacionados = await _context.pedidos
+                    .Where(p => p.id_cliente == id) // Usa p.id_cliente de tu modelo
+                    .ToListAsync();
+
+                if (pedidosRelacionados.Any())
+                {
+                    var listaIdPedidos = pedidosRelacionados.Select(p => p.id_pedidos).ToList();
+
+                    // 2. BUSCAR Y ELIMINAR LOS DETALLES DE CADA PEDIDO (NIETOS)
+                    var detallesRelacionados = await _context.detalleP
+                        .Where(d => listaIdPedidos.Contains(d.id_pedidos)) // id_pedidos de DetalleP.cs
+                        .ToListAsync();
+
+                    if (detallesRelacionados.Any())
+                    {
+                        _context.detalleP.RemoveRange(detallesRelacionados);
+                    }
+
+                    // 3. ELIMINAR LOS PEDIDOS (HIJOS)
+                    _context.pedidos.RemoveRange(pedidosRelacionados);
+                }
+
+                // 4. ELIMINAR EL CLIENTE (PADRE)
+                _context.Clientes.Remove(cliente);
+
+                // Guardar todos los cambios
+                await _context.SaveChangesAsync();
+
+                // Confirma la transacción: todo se eliminó correctamente
+                await transaction.CommitAsync();
+            }
+            catch (Exception)
+            {
+                // Si hay algún error, deshace TODA la operación
+                await transaction.RollbackAsync();
+                // Si falla después de limpiar, debe mostrar el error para debug
+                throw;
+            }
+
+            // Redirige al listado principal (Index)
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
