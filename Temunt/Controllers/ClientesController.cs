@@ -48,26 +48,95 @@ namespace Temunt.Controllers
             }
             return View(cliente);
         }
+
+        // GET: Clientes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Busca el cliente para enviarlo a la vista de edición
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            return View(cliente);
+        }
+
+        // POST: Clientes/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("IdCliente,Nombre,Empresa,Contacto,Telefono,Email")] Cliente cliente)
+        {
+            // Verifica que el ID del cliente sea el mismo que se está actualizando
+            if (id != cliente.IdCliente)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Marca el cliente como modificado en el contexto
+                    _context.Update(cliente);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    // Manejo de errores de concurrencia
+                    if (!_context.Clientes.Any(e => e.IdCliente == cliente.IdCliente))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(cliente);
+        }
+
+        // GET: Clientes/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Busca el cliente para mostrar los detalles en la vista de confirmación
+            var cliente = await _context.Clientes
+                .FirstOrDefaultAsync(m => m.IdCliente == id);
+
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return View(cliente);
+        }
+
         // POST: Clientes/Delete/5 (Ejecuta la eliminación en cascada con Transacción)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // Usa una transacción para asegurar que todas las eliminaciones se ejecuten exitosamente.
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
                 var cliente = await _context.Clientes.FindAsync(id);
+                if (cliente == null) return NotFound();
 
-                if (cliente == null)
-                {
-                    return NotFound();
-                }
-
-                // 1. OBTENER LOS PEDIDOS ASOCIADOS AL CLIENTE
+                // 1. OBTENER LOS PEDIDOS ASOCIADOS AL CLIENTE (Hijos)
                 var pedidosRelacionados = await _context.pedidos
-                    .Where(p => p.id_cliente == id) // Usa p.id_cliente de tu modelo
+                    .Where(p => p.id_cliente == id)
                     .ToListAsync();
 
                 if (pedidosRelacionados.Any())
@@ -76,7 +145,7 @@ namespace Temunt.Controllers
 
                     // 2. BUSCAR Y ELIMINAR LOS DETALLES DE CADA PEDIDO (NIETOS)
                     var detallesRelacionados = await _context.detalleP
-                        .Where(d => listaIdPedidos.Contains(d.id_pedidos)) // id_pedidos de DetalleP.cs
+                        .Where(d => listaIdPedidos.Contains(d.id_pedidos))
                         .ToListAsync();
 
                     if (detallesRelacionados.Any())
@@ -91,21 +160,16 @@ namespace Temunt.Controllers
                 // 4. ELIMINAR EL CLIENTE (PADRE)
                 _context.Clientes.Remove(cliente);
 
-                // Guardar todos los cambios
                 await _context.SaveChangesAsync();
-
-                // Confirma la transacción: todo se eliminó correctamente
                 await transaction.CommitAsync();
             }
             catch (Exception)
             {
-                // Si hay algún error, deshace TODA la operación
                 await transaction.RollbackAsync();
-                // Si falla después de limpiar, debe mostrar el error para debug
+                // Si el error persiste, lanzamos la excepción para ver la causa real
                 throw;
             }
 
-            // Redirige al listado principal (Index)
             return RedirectToAction(nameof(Index));
         }
     }
