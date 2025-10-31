@@ -40,7 +40,7 @@ namespace Temunt.Controllers
             if (usuarios != null)
             {
 
-                HttpContext.Session.SetInt32("id_usuarios", usuarios.id_usuario);
+                HttpContext.Session.SetInt32("id_usuario", usuarios.id_usuario);
                 HttpContext.Session.SetString("correo", usuarios.email);
                 HttpContext.Session.SetString("nombre_usuario", usuarios.nombreP); 
                 HttpContext.Session.SetString("rol_usuario", usuarios.roles);
