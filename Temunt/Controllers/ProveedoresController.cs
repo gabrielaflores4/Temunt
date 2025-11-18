@@ -50,18 +50,29 @@ namespace Temunt.Controllers
 
             return View(proveedor);
         }
-
+        
         public IActionResult Delete(int id)
-        {
+       {
             var prov = _context.proveedores.Find(id);
 
-            if (prov == null) return NotFound();
+            if (prov == null)
+                return NotFound();
+
+            // Verificar si tiene productos asociados
+            var tieneProductos = _context.producto.Any(p => p.id_prov == id);
+
+            if (tieneProductos)
+            {
+                TempData["Error"] = "No puedes eliminar este proveedor porque tiene productos asociados.";
+                return RedirectToAction(nameof(Index));
+            }
 
             _context.proveedores.Remove(prov);
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
+
 
         public IActionResult Create()
         {

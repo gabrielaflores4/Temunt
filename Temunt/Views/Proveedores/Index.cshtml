@@ -38,7 +38,12 @@
                 Añadir Proveedor
             </a>
         </div>
-
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
         <!-- Tabla -->
         <div class="table-container">
             <table class="proveedores-table">
@@ -100,3 +105,4 @@
 
 </body>
 </html>
+
