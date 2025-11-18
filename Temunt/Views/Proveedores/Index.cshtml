@@ -72,7 +72,10 @@
                                        title="Editar">
                                         <i class="fas fa-pen"></i>
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@item.id_prov"
+
+                                    <!-- botón eliminar con confirmación -->
+                                    <a href="javascript:void(0);"
+                                       onclick="confirmDelete('@item.id_prov')"
                                        class="action-btn"
                                        title="Eliminar">
                                         <i class="fas fa-trash"></i>
@@ -85,6 +88,15 @@
             </table>
         </div>
     </div>
+
+    <!-- Aquí debe ir el script ↓ -->
+    <script>
+        function confirmDelete(id) {
+            if (confirm("¿Seguro que deseas eliminar este proveedor?")) {
+                window.location.href = `/Proveedores/Delete/${id}`;
+            }
+        }
+    </script>
+
 </body>
 </html>
-

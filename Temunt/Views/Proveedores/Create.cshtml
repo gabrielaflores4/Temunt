@@ -31,11 +31,13 @@
         <div class="proveedores-header-bottom">
             <h1>Nuevo Proveedor</h1>
         </div>
+
         <div class="form-wrapper">
             <div class="form-card">
                 <h2 class="form-title">Añadir Proveedor</h2>
 
-                <form asp-action="Edit">
+                <!-- CORREGIDO: Ahora usa Create -->
+                <form asp-action="Create">
                     <div class="form-group">
                         <label asp-for="nombre" class="form-label">Nombre</label>
                         <input asp-for="nombre" class="form-input" />
@@ -57,10 +59,12 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn-submit">Editar</button>
+                        <!-- CORREGIDO: Botón dice Añadir -->
+                        <button type="submit" class="btn-submit">Añadir</button>
                     </div>
                 </form>
             </div>
+
             <div class="form-cancel">
                 <a asp-action="Index" class="btn-cancel">Cancelar</a>
             </div>
