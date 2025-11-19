@@ -35,8 +35,10 @@ namespace Temunt.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(ListaUsuarios));
             }
-            return View(usuario);
+
+            return View("CrearUsuarios", usuario);
         }
+
 
         public IActionResult EditarUsuario(int id)
         {
@@ -47,6 +49,8 @@ namespace Temunt.Controllers
                 return NotFound();
             }
 
+            usuario.contra = null;
+
             return View(usuario);
         }
 
@@ -55,18 +59,56 @@ namespace Temunt.Controllers
         public IActionResult EditarUsuario(int id, usuarios usuario)
         {
             if (id != usuario.id_usuario)
-            {
                 return BadRequest();
-            }
+
+            if (string.IsNullOrWhiteSpace(usuario.contra))
+                ModelState.Remove("contra");
 
             if (ModelState.IsValid)
             {
-                _context.Update(usuario);
+                var usuarioDb = _context.usuarios.FirstOrDefault(u => u.id_usuario == id);
+
+                if (usuarioDb == null)
+                    return NotFound();
+
+                usuarioDb.nombreU = usuario.nombreU;
+                usuarioDb.nombreP = usuario.nombreP;
+                usuarioDb.roles = usuario.roles;
+                usuarioDb.email = usuario.email;
+                usuarioDb.direccion = usuario.direccion;
+                usuarioDb.telefono = usuario.telefono;
+
+                if (!string.IsNullOrWhiteSpace(usuario.contra))
+                    usuarioDb.contra = usuario.contra;
+
+                _context.Update(usuarioDb);
                 _context.SaveChanges();
                 return RedirectToAction("ListaUsuarios");
             }
+            return View(usuario);
+        }
+
+        public IActionResult EliminarUsuario(int id)
+        {
+            var usuario = _context.usuarios.FirstOrDefault(u => u.id_usuario == id);
+            if (usuario == null)
+                return NotFound();
 
             return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EliminarUsuarioConfirmado(int id_usuario)
+        {
+            var usuario = _context.usuarios.FirstOrDefault(u => u.id_usuario == id_usuario);
+            if (usuario == null)
+                return NotFound();
+
+            _context.usuarios.Remove(usuario);
+            _context.SaveChanges();
+
+            return RedirectToAction("ListaUsuarios");
         }
     }
 }

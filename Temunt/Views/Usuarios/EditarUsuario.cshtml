@@ -17,22 +17,36 @@
                     <label class="fw-semibold">Nombre</label>
                     <input asp-for="nombreU" class="form-control" />
                 </div>
+
                 <div class="mb-3">
                     <label class="fw-semibold">Apellido</label>
                     <input asp-for="nombreP" class="form-control" />
                 </div>
+
+                <div class="mb-3">
+                    <label class="fw-semibold">Dirección</label>
+                    <input asp-for="direccion" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-semibold">Teléfono</label>
+                    <input asp-for="telefono" class="form-control" />
+                </div>
+
                 <div class="mb-3">
                     <label class="fw-semibold">Rol</label>
                     <select asp-for="roles" class="form-select">
                         <option value="">Seleccionar rol...</option>
-                        <option value="Admin">Administrador</option>
+                        <option value="Administrador">Administrador</option>
                         <option value="Empleado">Empleado</option>
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label class="fw-semibold">Email</label>
                     <input asp-for="email" type="email" class="form-control" />
                 </div>
+
                 <div class="mb-3">
                     <label class="fw-semibold">Contraseña</label>
                     <input asp-for="contra" type="password" class="form-control" />

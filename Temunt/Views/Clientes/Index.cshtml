@@ -27,16 +27,12 @@
                 <td>@Html.DisplayFor(modelItem => item.empresa)</td>
                 <td>@Html.DisplayFor(modelItem => item.email)</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.id_cliente"
-                       class="action-btn"
-                       title="Editar">
-                        <i class="fas fa-pen"></i>
+                    <a asp-action="Edit" asp-route-id="@item.id_cliente" class="btn btn-sm btn-outline-primary" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
                     </a>
 
-                    <a asp-action="Delete" asp-route-id="@item.id_cliente"
-                       class="action-btn"
-                       title="Eliminar">
-                        <i class="fas fa-trash"></i>
+                    <a asp-action="Delete" asp-route-id="@item.id_cliente" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                        <i class="bi bi-trash"></i>
                     </a>
                 </td>
             </tr>

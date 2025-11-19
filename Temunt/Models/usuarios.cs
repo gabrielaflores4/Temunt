@@ -6,7 +6,7 @@ namespace Temunt.Models
     public class usuarios
     {
         [Key]
-        [Column("id_usuario")]  // Aseguramos que 'id_usuarios' corresponde con la columna de la base de datos
+        [Column("id_usuario")] 
         public int id_usuario { get; set; }
 
         [Column("nombreU")]
