@@ -7,70 +7,80 @@
 
 <div class="container-fluid p-4" style="background-color: #f8f9fc;">
     <div class="container-fluid">
-
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0 fw-bold text-dark">Crear Nuevo Pedido</h2>
         </div>
-        <form asp-action="CrearPedidos" asp-controller="Pedidos" method="post">
+
+        <!-- Mostrar errores de validación -->
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @Html.ValidationSummary()
+            </div>
+        }
+
+        <form asp-action="CrearPedidos" asp-controller="Pedidos" method="post" id="pedidoForm">
+            @Html.AntiForgeryToken()
+
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label class="fw-semibold">Cliente</label>
-                    <select asp-for="id_cliente" class="form-select" asp-items="ViewBag.Clientes">
+                    <label class="fw-semibold">Cliente *</label>
+                    <select asp-for="id_cliente" class="form-select" asp-items="ViewBag.Clientes" required>
                         <option value="">Seleccionar cliente...</option>
                     </select>
+                    <span asp-validation-for="id_cliente" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row">
-                <!--Productos -->
                 <div class="col-md-6">
                     <div class="card shadow-sm p-4">
                         <h5 class="fw-bold mb-3">Productos</h5>
-
                         <div class="mb-3">
-                            <label class="fw-semibold">Producto</label>
-                            <select id="productoSelect" class="form-select" asp-items="ViewBag.Productos">
+                            <label class="fw-semibold">Producto *</label>
+                            <select id="productoSelect" class="form-select" required>
                                 <option value="">Seleccionar producto...</option>
+                                @foreach (var prod in (IEnumerable<Temunt.Models.producto>)ViewBag.Productos)
+                                {
+                                    <option value="@prod.id_prod" data-precio="@prod.precio">@prod.nombre</option>
+                                }
                             </select>
                         </div>
-
                         <div class="mb-3">
-                            <label class="fw-semibold">Cantidad</label>
-                            <input type="number" id="cantidadInput" class="form-control" placeholder="Valor" />
+                            <label class="fw-semibold">Cantidad *</label>
+                            <input type="number" id="cantidadInput" class="form-control" placeholder="Cantidad" min="1" required />
                         </div>
-
                         <div class="mb-3">
                             <label class="fw-semibold">Garantía - Expiración</label>
-                            <input type="date" id="garantiaInput" class="form-control" />
+                            <input type="date" id="garantiaInput" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                         </div>
-
                         <button type="button" id="btnAgregar" class="btn w-100" style="background-color:#070d2f; color:white;">
-                            Agregar
+                            Agregar Producto
                         </button>
                     </div>
                 </div>
-
-                <!--Resumen -->
                 <div class="col-md-6">
                     <div class="card shadow-sm p-4">
                         <h5 class="fw-bold mb-3">Resumen del Pedido</h5>
-
                         <div id="listaProductos" class="text-muted mb-3">
                             <p>No hay productos agregados</p>
                         </div>
-
                         <hr />
-
-                        <p>Total de productos: <span id="totalProductos">0</span></p>
-                        <p>Total del Pedido: $<span id="totalPedido">0</span></p>
-
-                        <button type="submit" class="btn w-100" style="background-color:#070d2f; color:white;">
+                        <div class="d-flex justify-content-between">
+                            <span>Total de productos:</span>
+                            <strong><span id="totalProductos">0</span></strong>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>Total del Pedido:</span>
+                            <strong>$<span id="totalPedido">0.00</span></strong>
+                        </div>
+                        <input type="hidden" id="detallePJson" name="detallePJson" value="[]" />
+                        <button type="button" id="btnCrearPedido" class="btn w-100 mt-3" style="background-color:#070d2f; color:white;">
                             Crear Pedido
                         </button>
                     </div>
                 </div>
             </div>
-
             <div class="text-end mt-4">
                 <a href="@Url.Action("Index", "Pedidos")" class="btn" style="background-color:#B91C1C; color:white;">
                     Cancelar
@@ -79,3 +89,53 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/pedidos.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const mensajeSuccess = '@TempData["SuccessMessage"]';
+        const mensajeError = '@TempData["ErrorMessage"]';
+
+        if (mensajeSuccess && typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: mensajeSuccess,
+                confirmButtonColor: '#070d2f'
+            });
+        } else if (mensajeSuccess) {
+            alert(mensajeSuccess);
+        }
+
+        if (mensajeError && typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: mensajeError,
+                confirmButtonColor: '#070d2f'
+            });
+        } else if (mensajeError) {
+            alert(mensajeError);
+        }
+
+        document.getElementById('pedidoForm')?.addEventListener('submit', function(e) {
+            const detallePJson = document.getElementById('detallePJson').value;
+            if (!detallePJson || detallePJson === '[]') {
+                e.preventDefault();
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Productos requeridos',
+                        text: 'Debe agregar al menos un producto al pedido',
+                        confirmButtonColor: '#070d2f'
+                    });
+                } else {
+                    alert('Debe agregar al menos un producto al pedido');
+                }
+            }
+        });
+    </script>
+}
