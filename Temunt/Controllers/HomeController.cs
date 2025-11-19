@@ -31,15 +31,11 @@ namespace Temunt.Controllers
                 return View();
             }
 
-            var usuario = _context.usuarios
+            var usuarios = _context.usuarios
                 .FirstOrDefault(u => u.email == email && u.contra == contra);
 
-            if (usuario != null)
+            if (usuarios != null)
             {
-                HttpContext.Session.SetInt32("id_usuarios", usuario.id_usuario);
-                HttpContext.Session.SetString("correo", usuario.email);
-                HttpContext.Session.SetString("nombre_usuario", usuario.nombreP);
-                HttpContext.Session.SetString("rol_usuario", usuario.roles);
 
                 HttpContext.Session.SetInt32("id_usuario", usuarios.id_usuario);
                 HttpContext.Session.SetString("correo", usuarios.email);
@@ -51,7 +47,7 @@ namespace Temunt.Controllers
                     return RedirectToAction("Index", "Dashboard");
                 }
 
-                if (usuario.roles == "Empleado")
+                if (usuarios.roles == "Empleado")
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
