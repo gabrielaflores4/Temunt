@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Temunt.Models.Cliente>
+﻿@model IEnumerable<Temunt.Models.clientes>
 
 @{
     ViewData["Title"] = "Listado de Clientes";
@@ -13,9 +13,9 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-            <th>@Html.DisplayNameFor(model => model.Empresa)</th>
-            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.empresa)</th>
+            <th>@Html.DisplayNameFor(model => model.email)</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -23,15 +23,15 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                <td>@Html.DisplayFor(modelItem => item.Empresa)</td>
-                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.empresa)</td>
+                <td>@Html.DisplayFor(modelItem => item.email)</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdCliente" class="btn btn-sm btn-outline-primary" title="Editar">
+                    <a asp-action="Edit" asp-route-id="@item.id_cliente" class="btn btn-sm btn-outline-primary" title="Editar">
                         <i class="bi bi-pencil-square"></i>
                     </a>
 
-                    <a asp-action="Delete" asp-route-id="@item.IdCliente" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                    <a asp-action="Delete" asp-route-id="@item.id_cliente" class="btn btn-sm btn-outline-danger" title="Eliminar">
                         <i class="bi bi-trash"></i>
                     </a>
                 </td>

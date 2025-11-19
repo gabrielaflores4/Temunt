@@ -35,8 +35,10 @@ namespace Temunt.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(ListaUsuarios));
             }
-            return View(usuario);
+
+            return View("CrearUsuarios", usuario);
         }
+
 
         public IActionResult EditarUsuario(int id)
         {

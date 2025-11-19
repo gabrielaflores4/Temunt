@@ -24,7 +24,7 @@ namespace Temunt.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
-            var cliente = await _context.Clientes.FirstOrDefaultAsync(m => m.IdCliente == id);
+            var cliente = await _context.Clientes.FirstOrDefaultAsync(m => m.id_cliente == id);
             if (cliente == null) return NotFound();
             return View(cliente);
         }
@@ -38,7 +38,7 @@ namespace Temunt.Controllers
         // POST: Clientes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Cliente cliente)
+        public async Task<IActionResult> Create(clientes cliente)
         {
             if (ModelState.IsValid)
             {
