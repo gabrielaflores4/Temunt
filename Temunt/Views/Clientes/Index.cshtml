@@ -27,13 +27,13 @@
                 <td>@Html.DisplayFor(modelItem => item.empresa)</td>
                 <td>@Html.DisplayFor(modelItem => item.email)</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdCliente"
+                    <a asp-action="Edit" asp-route-id="@item.id_cliente"
                        class="action-btn"
                        title="Editar">
                         <i class="fas fa-pen"></i>
                     </a>
 
-                    <a asp-action="Delete" asp-route-id="@item.IdCliente"
+                    <a asp-action="Delete" asp-route-id="@item.id_cliente"
                        class="action-btn"
                        title="Eliminar">
                         <i class="fas fa-trash"></i>

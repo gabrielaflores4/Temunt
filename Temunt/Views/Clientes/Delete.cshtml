@@ -1,4 +1,4 @@
-﻿@model Temunt.Models.Cliente
+﻿@model Temunt.Models.clientes
 
 @{
     ViewData["Title"] = "Eliminar Cliente";
@@ -8,19 +8,19 @@
 
 <h3 class="text-danger">¿Estás seguro de que quieres eliminar este cliente?</h3>
 <div>
-    <h4>Cliente: @Model.Nombre</h4>
+    <h4>Cliente: @Model.nombre</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Nombre)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Nombre)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Empresa)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Empresa)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Email)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.nombre)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.nombre)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.empresa)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.empresa)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.email)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.email)</dd>
     </dl>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="IdCliente" />
+        <input type="hidden" asp-for="id_cliente" />
         <input type="submit" value="Eliminar" class="btn btn-danger" /> |
         <a asp-action="Index">Cancelar y Volver a la Lista</a>
     </form>

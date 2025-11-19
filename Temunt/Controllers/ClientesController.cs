@@ -69,10 +69,10 @@ namespace Temunt.Controllers
         // POST: Clientes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCliente,Nombre,Empresa,Contacto,Telefono,Email")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("id_cliente,nombre,empresa,contacto,telefono,email")] clientes cliente)
         {
             // Verifica que el ID del cliente sea el mismo que se está actualizando
-            if (id != cliente.IdCliente)
+            if (id != cliente.id_cliente)
             {
                 return NotFound();
             }
@@ -88,7 +88,7 @@ namespace Temunt.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     // Manejo de errores de concurrencia
-                    if (!_context.Clientes.Any(e => e.IdCliente == cliente.IdCliente))
+                    if (!_context.Clientes.Any(e => e.id_cliente == cliente.id_cliente))
                     {
                         return NotFound();
                     }
@@ -112,7 +112,7 @@ namespace Temunt.Controllers
 
             // Busca el cliente para mostrar los detalles en la vista de confirmación
             var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.IdCliente == id);
+                .FirstOrDefaultAsync(m => m.id_cliente == id);
 
             if (cliente == null)
             {
