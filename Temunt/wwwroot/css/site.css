@@ -215,3 +215,24 @@ a.btn-crear:visited {
         border-color: #4c51bf;
         box-shadow: 0 0 0 0.2rem rgba(76, 81, 191, 0.25);
     }
+}
+
+.action-btn {
+    text-decoration: none;
+    color: #333;
+    padding: 0 5px;
+}
+
+ 
+    .action-btn:hover {
+        text-decoration: none;
+    }
+
+    .action-btn .fa-trash {
+        color: #dc3545; 
+    }
+
+    
+    .action-btn .fa-pen {
+        color: #007bff; 
+    }

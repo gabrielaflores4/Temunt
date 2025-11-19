@@ -5,8 +5,6 @@ namespace Temunt.Models
 {
     public class pedidos
     {
-
-
         [Key]
         public int id_pedidos { get; set; }
         public DateTime? fechaP { get; set; }
