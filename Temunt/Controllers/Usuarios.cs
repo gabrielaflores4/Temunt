@@ -87,5 +87,28 @@ namespace Temunt.Controllers
             }
             return View(usuario);
         }
+
+        public IActionResult EliminarUsuario(int id)
+        {
+            var usuario = _context.usuarios.FirstOrDefault(u => u.id_usuario == id);
+            if (usuario == null)
+                return NotFound();
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EliminarUsuarioConfirmado(int id_usuario)
+        {
+            var usuario = _context.usuarios.FirstOrDefault(u => u.id_usuario == id_usuario);
+            if (usuario == null)
+                return NotFound();
+
+            _context.usuarios.Remove(usuario);
+            _context.SaveChanges();
+
+            return RedirectToAction("ListaUsuarios");
+        }
     }
 }

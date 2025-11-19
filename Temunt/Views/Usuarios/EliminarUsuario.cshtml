@@ -1,0 +1,26 @@
+﻿@model Temunt.Models.usuarios
+
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<div class="container mt-4">
+    <div class="card p-4">
+        <h3 class="text-danger mb-3">¿Eliminar este usuario?</h3>
+
+        <p><strong>Nombre:</strong> @Model.nombreU</p>
+        <p><strong>Apellido:</strong> @Model.nombreP</p>
+        <p><strong>Rol:</strong> @Model.roles</p>
+        <p><strong>Email:</strong> @Model.email</p>
+
+        <form asp-action="EliminarUsuarioConfirmado" method="post">
+            <input type="hidden" asp-for="id_usuario" />
+
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+
+            <a asp-action="ListaUsuarios" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </form>
+    </div>
+</div>
