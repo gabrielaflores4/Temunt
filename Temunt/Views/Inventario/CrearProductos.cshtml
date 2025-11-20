@@ -12,6 +12,7 @@
         </div>
 
         <form asp-action="CrearProductos" asp-controller="Inventario" method="post">
+            @Html.AntiForgeryToken()
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label asp-for="nombre" class="form-label fw-semibold"></label>
@@ -61,5 +62,9 @@
                 </button>
             </div>
         </form>
+
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }
     </div>
 </div>

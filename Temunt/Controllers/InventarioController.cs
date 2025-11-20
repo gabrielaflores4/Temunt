@@ -5,6 +5,8 @@ using Temunt.Models;
 
 namespace Temunt.Controllers
 {
+
+
     public class InventarioController : Controller
     {
         private readonly TemuntDbContext _context;
@@ -83,6 +85,49 @@ namespace Temunt.Controllers
             ViewBag.Proveedores = new SelectList(_context.proveedores, "id_prov", "nombre", producto.id_prov);
 
             return View(producto);
+
+
         }
+
+        // GET: Mostrar página de eliminación
+        public IActionResult EliminarProducto(int id)
+        {
+            var producto = _context.producto.FirstOrDefault(p => p.id_prod == id);
+
+            if (producto == null)
+                return NotFound();
+
+            return View(producto);
+        }
+
+        // POST: Confirmar eliminación
+        [HttpPost]
+        public IActionResult EliminarProductoConfirmado(int id_prod)
+        {
+            var producto = _context.producto.FirstOrDefault(p => p.id_prod == id_prod);
+
+            if (producto == null)
+                return NotFound();
+
+            _context.producto.Remove(producto);
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Producto eliminado correctamente";
+            return RedirectToAction("Productos");
+        }
+
+
+
+
+
+
+
+
+
+
     }
+
 }
+
+
+

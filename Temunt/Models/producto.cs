@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Temunt.Models
 {
     public class producto
+
+
     {
         [Key]
         public int id_prod { get; set; }
@@ -15,9 +18,11 @@ namespace Temunt.Models
         public int id_prov { get; set; }
 
         [ForeignKey("id_cat")]
-        public virtual categorias categorias { get; set; }
+        [ValidateNever]
+        public categorias? categorias { get; set; }
 
         [ForeignKey("id_prov")]
-        public virtual proveedores proveedores { get; set; }
+        [ValidateNever]
+        public proveedores? proveedores { get; set; }
     }
 }
