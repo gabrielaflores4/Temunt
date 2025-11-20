@@ -14,9 +14,13 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// Configura los servicios y la base de datos
+// Obteniendo la cadena del json
+var connectionString = builder.Configuration.GetConnectionString("TemuntDbConnection");
+
+// DbContext MySQL con pomelo
 builder.Services.AddDbContext<TemuntDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TemuntDbConnection")));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+);
 
 var app = builder.Build();
 
