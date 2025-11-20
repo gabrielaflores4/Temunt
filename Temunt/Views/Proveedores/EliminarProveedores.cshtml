@@ -1,0 +1,35 @@
+﻿@model Temunt.Models.proveedores
+
+@{
+    ViewData["Title"] = "Eliminar Proveedor";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid p-4" style="background-color:#f8f9fc;">
+
+    <h2 class="fw-bold text-danger mb-4">Eliminar Proveedor</h2>
+
+    <p class="fs-5 mb-4">¿Estás seguro de que deseas eliminar este proveedor?</p>
+
+    <div class="mb-4">
+        <p><strong>Nombre:</strong> @Model.nombre</p>
+        <p><strong>Dirección:</strong> @Model.direccion</p>
+        <p><strong>Teléfono:</strong> @Model.telefono</p>
+        <p><strong>Email:</strong> @Model.email</p>
+    </div>
+
+    <form asp-action="EliminarProveedorConfirmado" method="post">
+        <input type="hidden" asp-for="id_prov" />
+
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-danger px-4">
+                Eliminar
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary px-4">
+                Cancelar
+            </a>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,33 @@
+﻿@model Temunt.Models.pedidos
+
+@{
+    ViewData["Title"] = "Eliminar Pedido";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid p-4" style="background-color:#f8f9fc;">
+    <h2 class="fw-bold text-danger mb-4">Eliminar Pedido</h2>
+
+    <p class="fs-5 mb-4">¿Estás seguro de que deseas eliminar este pedido?</p>
+
+    <div class="mb-4">
+        <p><strong>ID Pedido:</strong> @Model.id_pedidos</p>
+        <p><strong>Cliente:</strong> @Model.clientes?.nombre</p>
+        <p><strong>Estado:</strong> @Model.estadoP?.estado</p>
+    </div>
+
+    <form asp-action="Eliminar" method="post">
+
+        <input type="hidden" name="id" value="@Model.id_pedidos" />
+
+        <div class="d-flex gap-3">
+            <form asp-action="Eliminar" method="post">
+                <input type="hidden" asp-for="id_pedidos" />
+
+                <button type="submit" class="btn btn-danger px-4">Eliminar</button>
+                <a asp-action="Index" class="btn btn-secondary px-4">Cancelar</a>
+            </form>
+
+        </div>
+    </form>
+</div>

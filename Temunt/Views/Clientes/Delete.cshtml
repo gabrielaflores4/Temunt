@@ -4,24 +4,32 @@
     ViewData["Title"] = "Eliminar Cliente";
 }
 
-<h1>Eliminar Cliente</h1>
+<div class="container mt-5">
 
-<h3 class="text-danger">¿Estás seguro de que quieres eliminar este cliente?</h3>
-<div>
-    <h4>Cliente: @Model.nombre</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.nombre)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.nombre)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.empresa)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.empresa)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.email)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.email)</dd>
-    </dl>
+    <h2 class="text-danger mb-4">Eliminar Cliente</h2>
 
-    <form asp-action="Delete">
+    <p class="fs-5 mb-4">¿Estás seguro que deseas eliminar este cliente?</p>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+
+            <p><strong>Nombre:</strong> @Model.nombre</p>
+            <p><strong>Empresa:</strong> @Model.empresa</p>
+            <p><strong>Email:</strong> @Model.email</p>
+
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="id_cliente" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index">Cancelar y Volver a la Lista</a>
+
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-danger px-4">Eliminar</button>
+
+            <a asp-action="Index" class="btn btn-secondary px-4">
+                Cancelar
+            </a>
+        </div>
     </form>
+
 </div>

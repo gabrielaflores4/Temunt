@@ -4,23 +4,35 @@
     ViewData["Title"] = "Eliminar Usuario";
 }
 
-<div class="container mt-4">
-    <div class="card p-4">
-        <h3 class="text-danger mb-3">¿Eliminar este usuario?</h3>
+<div class="container mt-5">
 
-        <p><strong>Nombre:</strong> @Model.nombreU</p>
-        <p><strong>Apellido:</strong> @Model.nombreP</p>
-        <p><strong>Rol:</strong> @Model.roles</p>
-        <p><strong>Email:</strong> @Model.email</p>
+    <h2 class="text-danger mb-4">Eliminar Usuario</h2>
 
-        <form asp-action="EliminarUsuarioConfirmado" method="post">
-            <input type="hidden" asp-for="id_usuario" />
+    <div class="mb-4">
+        <p class="fs-5">¿Estás seguro que deseas eliminar este usuario?</p>
 
-            <button type="submit" class="btn btn-danger">Eliminar</button>
+        <div class="row">
+            <div class="col-md-6">
 
-            <a asp-action="ListaUsuarios" class="btn btn-secondary">
+                <p><strong>Nombre:</strong> @Model.nombreU</p>
+                <p><strong>Apellido:</strong> @Model.nombreP</p>
+                <p><strong>Rol:</strong> @Model.roles</p>
+                <p><strong>Email:</strong> @Model.email</p>
+
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="EliminarUsuarioConfirmado" method="post">
+        <input type="hidden" asp-for="id_usuario" />
+
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-danger px-4">Eliminar</button>
+
+            <a asp-action="ListaUsuarios" class="btn btn-secondary px-4">
                 Cancelar
             </a>
-        </form>
-    </div>
+        </div>
+    </form>
+
 </div>

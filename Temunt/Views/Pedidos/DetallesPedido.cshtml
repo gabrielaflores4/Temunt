@@ -59,20 +59,18 @@
         </div>
 
         <div class="d-flex justify-content-between mt-4">
-            <form asp-action="CambiarEstado" asp-controller="Pedidos" method="post">
+            <form asp-action="CambiarEstado" method="post">
                 <input type="hidden" name="id" value="@Model.id_pedidos" />
-                <input type="hidden" name="nuevoEstadoId" value="2" />
                 <button type="submit" class="btn px-3" style="background-color:#1E1B4B; color:white;">
                     Marcar como entregado
                 </button>
             </form>
 
-            <form asp-action="Eliminar" asp-controller="Pedidos" method="post">
-                <input type="hidden" name="id" value="@Model.id_pedidos" />
-                <button type="submit" class="btn px-3" style="background-color:#B91C1C; color:white;">
-                    Cancelar Pedido
-                </button>
-            </form>
+            <a asp-action="Eliminar" asp-route-id="@Model.id_pedidos"
+               class="btn px-3" style="background-color:#B91C1C; color:white;">
+                Eliminar Pedido
+            </a>
+
         </div>
 
 

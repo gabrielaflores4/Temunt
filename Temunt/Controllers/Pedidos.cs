@@ -225,14 +225,14 @@ namespace Temunt.Controllers
                     TempData["ErrorMessage"] = "Pedido no encontrado.";
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Error al eliminar pedido: {ex.Message}");
-                TempData["ErrorMessage"] = "Error al eliminar el pedido. Asegúrate de que no tenga detalles asociados.";
+                TempData["ErrorMessage"] = "Error al eliminar el pedido.";
             }
 
             return RedirectToAction(nameof(Index));
         }
+
 
         public async Task<IActionResult> Eliminar(int? id)
         {
@@ -246,7 +246,21 @@ namespace Temunt.Controllers
 
             if (pedido == null) return NotFound();
 
-            return View(pedido);
+            return View("EliminarPedidos", pedido);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CambiarEstado(int id)
+        {
+            var pedido = await _context.pedidos.FirstOrDefaultAsync(p => p.id_pedidos == id);
+
+            if (pedido == null)
+                return NotFound();
+
+            pedido.id_estado = 3;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }

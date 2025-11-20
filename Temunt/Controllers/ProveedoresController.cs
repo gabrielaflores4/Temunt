@@ -50,15 +50,14 @@ namespace Temunt.Controllers
 
             return View(proveedor);
         }
-        
-        public IActionResult Delete(int id)
-       {
-            var prov = _context.proveedores.Find(id);
 
-            if (prov == null)
+        public IActionResult EliminarProveedor(int id)
+        {
+            var proveedor = _context.proveedores.FirstOrDefault(p => p.id_prov == id);
+
+            if (proveedor == null)
                 return NotFound();
 
-            // Verificar si tiene productos asociados
             var tieneProductos = _context.producto.Any(p => p.id_prov == id);
 
             if (tieneProductos)
@@ -67,10 +66,22 @@ namespace Temunt.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            _context.proveedores.Remove(prov);
+            return View("EliminarProveedores", proveedor);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EliminarProveedorConfirmado(int id_prov)
+        {
+            var proveedor = _context.proveedores.Find(id_prov);
+
+            if (proveedor == null)
+                return NotFound();
+
+            _context.proveedores.Remove(proveedor);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
 

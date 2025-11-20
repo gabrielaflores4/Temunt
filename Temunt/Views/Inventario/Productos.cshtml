@@ -20,26 +20,25 @@
             {
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     @TempData["SuccessMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             }
 
-            <!-- Tabla de productos -->
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
                         <thead style="background-color: #f7f9fc;">
                             <tr>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Código</th>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Nombre</th>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Categoría</th>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Proveedor</th>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Descripción</th>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Precio</th>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0">Stock</th>
-                                <th scope="col" class="text-muted fw-normal py-3 px-4 border-0 text-center">Acciones</th>
+                                <th class="text-muted fw-normal py-3 px-4 border-0">Código</th>
+                                <th class="text-muted fw-normal py-3 px-4 border-0">Nombre</th>
+                                <th class="text-muted fw-normal py-3 px-4 border-0">Categoría</th>
+                                <th class="text-muted fw-normal py-3 px-4 border-0">Proveedor</th>
+                                <th class="text-muted fw-normal py-3 px-4 border-0">Precio</th>
+                                <th class="text-muted fw-normal py-3 px-4 border-0">Stock</th>
+                                <th class="text-muted fw-normal py-3 px-4 border-0 text-center">Acciones</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             @if (Model != null && Model.Any())
                             {
@@ -48,21 +47,26 @@
                                     <tr style="border-bottom: 1px solid #e9ecef;">
                                         <td class="px-4 py-3 fw-medium">@item.id_prod.ToString("D4")</td>
                                         <td class="px-4 py-3 fw-medium text-dark">@item.nombre</td>
+
                                         <td class="px-4 py-3 text-muted">@item.id_cat</td>
                                         <td class="px-4 py-3 text-muted">@item.id_prov</td>
-                                        <td class="px-4 py-3 text-muted">@item.descripcion</td>
+
                                         <td class="px-4 py-3 fw-medium text-dark">@item.precio.ToString("C")</td>
                                         <td class="px-4 py-3 fw-medium">@item.stock</td>
+
                                         <td class="px-4 py-3 text-center">
+
                                             <a href="@Url.Action("EditarProductos", "Inventario", new { id = item.id_prod })"
-                                               class="btn btn-detalles me-2">
-                                                Editar
-                                            </a>
-                                            <a href="@Url.Action("EliminarProducto", "Inventario", new { id = item.id_prod })"
-                                               class="btn btn-cancelar">
-                                                Eliminar
+                                               class="btn btn-detalles me-2"
+                                               title="Editar">
+                                                <i class="fas fa-pen"></i>
                                             </a>
 
+                                            <a href="@Url.Action("EliminarProducto", "Inventario", new { id = item.id_prod })"
+                                               class="btn btn-cancelar"
+                                               title="Eliminar">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
 
                                         </td>
                                     </tr>
