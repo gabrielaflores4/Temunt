@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;  // 👈 Esto es clave
 using System.Threading.Tasks;
 using Temunt.Models;
+using Temunt.Servicios;
 
 namespace Temunt.Controllers
 {
+    [Autenticado]
     [Route("Inventario")]
     public class ProductosController : Controller
     {

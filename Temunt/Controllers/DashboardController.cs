@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Temunt.Servicios;
 
 namespace Temunt.Controllers
 {
+    [Autenticado]
     public class DashboardController : Controller
     {
         public IActionResult Index()

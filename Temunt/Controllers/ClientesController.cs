@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Temunt.Models; 
+using Temunt.Models;
+using Temunt.Servicios;
 
 namespace Temunt.Controllers
+
 {
+    [Autenticado]
     public class ClientesController : Controller
     {
         

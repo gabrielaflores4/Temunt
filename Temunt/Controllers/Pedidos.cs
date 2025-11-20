@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Temunt.Models;
+using Temunt.Servicios;
 
 namespace Temunt.Controllers
 {
+    [Autenticado]
     public class PedidosController : Controller
     {
         private readonly TemuntDbContext _context;

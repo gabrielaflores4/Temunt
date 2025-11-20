@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Temunt.Models;
+using Temunt.Servicios;
 
 namespace Temunt.Controllers
 {
+    [Autenticado]
     public class UsuariosController : Controller
     {
         private readonly TemuntDbContext _context;

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Temunt.Models;
+using Temunt.Servicios;
 
 namespace Temunt.Controllers
 {
+    [Autenticado]
     public class ProveedoresController : Controller
     {
          private readonly TemuntDbContext _context;

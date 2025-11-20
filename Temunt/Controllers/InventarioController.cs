@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Temunt.Models;
+using Temunt.Servicios;
 
 namespace Temunt.Controllers
 {
 
-
+    [Autenticado]
     public class InventarioController : Controller
     {
         private readonly TemuntDbContext _context;

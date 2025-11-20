@@ -14,14 +14,12 @@ namespace Temunt.Controllers
             _context = context;
         }
 
-        [Autenticado]
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Autenticado]
         [HttpPost]
         public IActionResult Index(string email, string contra)
         {
@@ -59,5 +57,12 @@ namespace Temunt.Controllers
 
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
