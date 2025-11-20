@@ -1,0 +1,63 @@
+﻿@model Temunt.Models.producto
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid p-4" style="background-color: #f8f9fc;">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 fw-bold text-danger">Eliminar Producto</h2>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>¡Atención!</strong> Estás a punto de eliminar este producto.
+            Esta acción no se puede deshacer.
+        </div>
+
+        <form asp-action="EliminarProductoConfirmado" asp-controller="Inventario" method="post">
+            <input type="hidden" name="id_prod" value="@Model.id_prod" />
+
+           
+
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Nombre</label>
+                    <input class="form-control" value="@Model.nombre" disabled />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label class="form-label fw-semibold">Descripción</label>
+                    <textarea class="form-control" rows="3" disabled>@Model.descripcion</textarea>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Precio</label>
+                    <input class="form-control" value="@Model.precio" disabled />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Stock</label>
+                    <input class="form-control" value="@Model.stock" disabled />
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a asp-action="Productos" asp-controller="Inventario" class="btn" style="background-color:#6c757d; color:white;">
+                    <i class="bi bi-arrow-left-circle"></i> Cancelar
+                </a>
+
+                <button type="submit" class="btn" style="background-color:#B91C1C; color:white;">
+                    <i class="bi bi-trash"></i> Eliminar Producto
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
